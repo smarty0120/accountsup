@@ -218,7 +218,7 @@
       var img = document.createElement('img');
       img.className = 'logo-img';
       img.alt = 'Accountsup Logo';
-      img.src = 'file:///C:/Users/asfin/.gemini/antigravity-ide/brain/c2c6cc0f-b257-40c9-99e0-f6d5a1420b73/media__1781511777500.png';
+      img.src = 'assets/logo.png';
       
       img.onerror = function() {
         this.style.display = 'none';
