@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap');
 
 :root {
+  --teal: #20c997;
   --navy-950: #040d1a;
   --navy-900: #0A192F;
   --navy-800: #0d2244;
@@ -86,27 +87,33 @@ input, textarea, select { font-family: inherit; }
   opacity: 0.85;
 }
 .nav-logo-badge {
-  background: #ffffff;
-  padding: 6px 16px;
-  border-radius: 99px;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   width: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: none !important;
   transition: var(--transition-base);
 }
 .nav-logo-badge:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: none !important;
   opacity: 1 !important;
 }
 .logo-img {
-  height: 28px;
+  height: 38px !important;
   width: auto;
   object-fit: contain;
   transition: var(--transition-base);
+}
+body:not(.light-theme) .logo-img {
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+body.light-theme .logo-img {
+  filter: none !important;
 }
 .nav-links {
   display: flex;
@@ -145,6 +152,17 @@ input, textarea, select { font-family: inherit; }
   font-weight: 600;
   transition: var(--transition-base);
   white-space: nowrap;
+}
+
+/* Secondary outline button using teal for hover */
+.btn-outline-teal {
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+}
+.btn-outline-teal:hover {
+  background: rgba(32, 201, 151, 0.1);
+  border-color: var(--teal);
+  box-shadow: 0 0 20px rgba(32, 201, 151, 0.18);
 }
 .btn-outline-sm:hover {
   background: rgba(212, 175, 55, 0.1);
@@ -1040,4 +1058,8 @@ body.light-theme #theme-label { color: #607090; }
 @media (max-width: 480px) {
   #theme-label { display: none; }
   #whatsapp-tooltip { display: none; }
+}
+
+#theme-toggle, #theme-label, #mobile-theme-row {
+  display: none !important;
 }

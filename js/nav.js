@@ -154,7 +154,7 @@
     btn.href = 'https://wa.me/18005551234';
     btn.target = '_blank';
     btn.setAttribute('aria-label', 'Chat on WhatsApp');
-    btn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.725 1.45 5.489 0 9.952-4.43 9.955-9.885.002-2.643-1.019-5.127-2.877-6.986a9.82 9.82 0 00-6.992-2.879C6.012 1.854 1.55 6.284 1.547 11.739c-.002 1.714.453 3.39 1.32 4.873l-.99 3.613 3.77-.971zM17.487 14.39c-.3-.15-1.774-.875-2.049-.974-.276-.1-.476-.15-.676.15-.2.3-.775.974-.95 1.174-.175.2-.35.226-.65.076-1.05-.525-1.807-1.026-2.52-2.253-.188-.328-.378-.656-.546-.98-.24-.46-.02-.7.2-.92l.6-.6c.07-.07.1-.15.15-.25.05-.1.02-.2-.01-.3-.03-.1-.3-.725-.412-1.001-.11-.275-.23-.238-.312-.242-.08-.004-.175-.004-.275-.004-.1 0-.263.037-.4.187-.137.15-.525.513-.525 1.252 0 .739.538 1.45.613 1.55.075.1 1.058 1.616 2.562 2.267.36.156.64.25.86.32.36.115.69.1.95.064.29-.041.875-.359 1.001-.707.125-.348.125-.648.088-.707-.037-.059-.15-.1-.45-.25z"/></svg>';
+    btn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M19.001 4.908A9.817 9.817 0 0 0 11.992 2C6.534 2 2.085 6.448 2.08 11.91c0 1.748.458 3.45 1.321 4.956L2 23l6.282-1.648a9.816 9.816 0 0 0 4.708 1.201h.004c5.454 0 9.907-4.448 9.912-9.91a9.825 9.825 0 0 0-2.905-7.008zM11.992 20.15a8.163 8.163 0 0 1-4.162-1.144l-.298-.177-3.73.978.995-3.637-.194-.309a8.145 8.145 0 0 1-1.248-4.215c.004-4.5 3.666-8.162 8.171-8.162a8.113 8.113 0 0 1 5.776 2.395 8.115 8.115 0 0 1 2.392 5.777c-.004 4.505-3.667 8.169-8.172 8.169zm4.484-6.132c-.246-.123-1.455-.718-1.68-.8a.312.312 0 0 0-.452.12c-.227.3-.603.753-.738.905-.136.15-.27.165-.517.042A7.39 7.39 0 0 1 9.4 12.115c-.914-1.583-.98-1.543-1.12-1.782-.136-.24-.015-.368.107-.49.11-.11.245-.286.37-.43.123-.142.164-.24.246-.4.082-.165.04-.308-.02-.43-.062-.124-.549-1.323-.752-1.812-.198-.475-.4-.41-.548-.418-.14-.007-.302-.008-.462-.008a.887.887 0 0 0-.642.3c-.22.24-.84.82-.84 2.002 0 1.183.86 2.325.98 2.485.12.16 1.69 2.58 4.098 3.62.573.247 1.02.394 1.368.504.577.182 1.102.156 1.517.094.462-.07 1.455-.595 1.66-1.171.205-.577.205-1.073.143-1.172-.06-.1-.227-.162-.472-.284z"/></svg>';
     
     var tooltip = document.createElement('div');
     tooltip.id = 'whatsapp-tooltip';
@@ -168,57 +168,34 @@
     }, 5000);
   }
 
-  function injectThemeToggle() {
-    var navInner = document.querySelector('.nav-inner');
-    if (!navInner) return;
-    
-    var navActions = navInner.querySelector('.nav-actions');
-    if (!navActions) return;
-    
-    var toggleGroup = document.createElement('div');
-    toggleGroup.style.cssText = 'display:flex;align-items:center;gap:10px;margin-left:16px;';
-    
-    var label = document.createElement('span');
-    label.id = 'theme-label';
-    label.style.cssText = 'font-size:12px;color:var(--slate-soft);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;';
-    label.textContent = 'Dark';
-    
-    var btn = document.createElement('button');
-    btn.id = 'theme-toggle';
-    btn.setAttribute('aria-label', 'Toggle theme');
-    btn.innerHTML = '<div id="theme-toggle-knob"></div>';
-    
-    toggleGroup.appendChild(label);
-    toggleGroup.appendChild(btn);
-    navActions.parentNode.insertBefore(toggleGroup, navActions.nextSibling);
-    
-    var theme = localStorage.getItem('accountsup_theme') || 'dark';
-    if (theme === 'light') {
-      document.body.classList.add('light-theme');
-      label.textContent = 'Light';
-    }
-    
-    btn.addEventListener('click', function() {
-      var isLight = document.body.classList.toggle('light-theme');
-      if (isLight) {
-        localStorage.setItem('accountsup_theme', 'light');
-        label.textContent = 'Light';
+  function initThemeListener() {
+    var mq = window.matchMedia('(prefers-color-scheme: light)');
+    function applyTheme(e) {
+      if (e.matches) {
+        document.body.classList.add('light-theme');
       } else {
-        localStorage.setItem('accountsup_theme', 'dark');
-        label.textContent = 'Dark';
+        document.body.classList.remove('light-theme');
       }
-    });
+    }
+    if (mq.addEventListener) {
+      mq.addEventListener('change', applyTheme);
+    } else if (mq.addListener) {
+      mq.addListener(applyTheme);
+    }
+    applyTheme(mq);
   }
 
   function injectLogo() {
     var logos = document.querySelectorAll('.nav-logo');
+    var base = window.location.pathname.replace(/\/[^\/]*$/, '/');
+    var logoSrc = base + 'assets/logo.png';
     logos.forEach(function(el) {
       el.classList.add('nav-logo-badge');
       
       var img = document.createElement('img');
       img.className = 'logo-img';
       img.alt = 'Accountsup Logo';
-      img.src = 'assets/logo.png';
+      img.src = logoSrc;
       
       img.onerror = function() {
         this.style.display = 'none';
@@ -241,7 +218,7 @@
     initCounters();
     initSmoothScroll();
     injectWhatsApp();
-    injectThemeToggle();
+    initThemeListener();
 
     var body = document.body;
     var clearAnimation = function (e) {
