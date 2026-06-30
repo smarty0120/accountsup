@@ -997,10 +997,15 @@ body.light-theme .gold-gradient-text {
 }
 body.light-theme .gold-text { color: var(--gold-dark); }
 
-body.light-theme #back-to-top { box-shadow: 0 4px 20px rgba(180,140,20,0.35); }
+body.light-theme #back-to-top { box-shadow: 0 4px 20px rgba(180,140,20,0.35); background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light)); }
 
-body.light-theme #whatsapp-tooltip { background: #1a2744; }
-body.light-theme #whatsapp-tooltip::after { border-left-color: #1a2744; }
+body.light-theme #whatsapp-tooltip {
+  background: #ffffff;
+  color: #1a2744;
+  border: 1px solid rgba(10,25,47,0.12);
+  box-shadow: 0 4px 16px rgba(10,25,47,0.12);
+}
+body.light-theme #whatsapp-tooltip::after { border-left-color: #ffffff; }
 body.light-theme #theme-label { color: #607090; }
 
 @media (max-width: 480px) {
