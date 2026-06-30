@@ -185,6 +185,29 @@
       tooltip.classList.add('show');
     }, 4000);
   }
+  function applySavedTheme() {
+    var saved = localStorage.getItem('accountsup_theme');
+    if (saved === 'light') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+  }
+
+  function initLogoEasterEgg() {
+    var headerLogo = document.querySelector('#main-nav .nav-logo');
+    if (!headerLogo) return;
+    
+    headerLogo.addEventListener('click', function(e) {
+      var isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('accountsup_theme', isLight ? 'light' : 'dark');
+      
+      var current = window.location.pathname.split('/').pop().toLowerCase();
+      if (current === 'index.html' || current === 'index' || current === '') {
+        e.preventDefault();
+      }
+    });
+  }
 
   function injectLogo() {
     var logos = document.querySelectorAll('.nav-logo');
@@ -208,6 +231,7 @@
   }
 
   function initAll() {
+    applySavedTheme();
     injectLogo();
     setActiveNav();
     initHamburger();
@@ -217,6 +241,7 @@
     initCounters();
     initSmoothScroll();
     injectWhatsApp();
+    initLogoEasterEgg();
 
     var body = document.body;
     var clearAnimation = function (e) {
